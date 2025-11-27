@@ -28,31 +28,49 @@ int** read_image(const char* filename, int rows, int cols) {
     return matriz;
 }
 
-void free_image(int** image, int rows) {
+// Función para liberar la memoria de la matriz
+void free_matrix(int** matriz, int rows) {
     for (int i = 0; i < rows; i++) {
-        free(image[i]);
+        free(matriz[i]);
     }
-    free(image);
+    free(matriz);
 }
 
-int main() {
-    const char* filename = "txt/prueba.txt";
-    int rows = 2;
-    int cols = 5;
+int** sobel_filter(int** matriz, int rows, int cols) {
+    // Kernel gx y gy del filtro Sobel
+    int gx[3][3] = {
+        {-1, 0, 1},
+        {-2, 0, 2},
+        {-1, 0, 1}
+    };
+    int gy[3][3] = {
+        {1, 2, 1},
+        {0, 0, 0},
+        {-1, -2, -1}
+    };
 
-    int** image = read_image(filename, rows, cols);
-    if (image == NULL) {
-        return 1;
-    }
+    for (int i = 1; i < rows - 1; i++) {
+        for (int j = 1; j < cols - 1; j++) {
+            int sobelX = 0;
+            int sobelY = 0;
 
-    // Imprime la imagen leida
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            printf("%d ", image[i][j]);
+            for (int u = -1; u <= 1; u++) {
+                for (int v = -1; v <= 1; v++) {
+                    // Pixel al que se aplica el kernel
+                    int pixel = matriz[i + u][j + v];
+                    sobelX += pixel * gx[u + 1][v + 1];
+                    sobelY += pixel * gy[u + 1][v + 1];
+                }
+            }
+
+            // Magnitud del gradiente
+            int magnitude = (int)sqrt((sobelX * sobelX) + (sobelY * sobelY));
+            // Limitar el valor a 0-255
+            //if (magnitude < 0) magnitude = 0;
+            if (magnitude > 255) magnitude = 255;
+            matriz[i][j] = magnitude;
         }
-        printf("\n");
     }
 
-    free_image(image, rows);
-    return 0;
+    return matriz;
 }
