@@ -21,7 +21,7 @@ float** read_image(const char* filename, int rows, int cols) {
     // Lee los valores de la imagen desde el archivo
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            fscanf(file, "%d", &matriz[i][j]);
+            fscanf(file, "%f", &matriz[i][j]);
         }
     }
     fclose(file);
@@ -29,7 +29,7 @@ float** read_image(const char* filename, int rows, int cols) {
 }
 
 // Función para liberar la memoria de la matriz
-void free_matrix(int** matriz, int rows) {
+void free_matrix(float** matriz, int rows) {
     for (int i = 0; i < rows; i++) {
         free(matriz[i]);
     }
