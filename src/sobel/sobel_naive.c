@@ -3,25 +3,25 @@
 #include <string.h>
 #include <math.h>
 
-float** read_image(const char* filename, int rows, int cols) {
+int** read_image(const char* filename, int rows, int cols) {
     FILE* file = fopen(filename, "r");
     if (!file) {
         printf("Error al abrir el archivo %s\n", filename);
         return NULL;
     }
     // Interpretacion naive, crea una matriz para almacenar la imagen y reserva memoria
-    float **matriz;
+    int **matriz;
 
     // Reserva memoria
-    matriz = (float**)malloc(rows * sizeof(float*));
+    matriz = (int**)malloc(rows * sizeof(int*));
     for (int i = 0; i < rows; i++) {
-        matriz[i] = (float*)malloc(cols * sizeof(float));
+        matriz[i] = (int*)malloc(cols * sizeof(int));
     }
 
     // Lee los valores de la imagen desde el archivo
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            fscanf(file, "%f", &matriz[i][j]);
+            fscanf(file, "%d", &matriz[i][j]);
         }
     }
     fclose(file);
@@ -29,14 +29,14 @@ float** read_image(const char* filename, int rows, int cols) {
 }
 
 // Función para liberar la memoria de la matriz
-void free_matrix(float** matriz, int rows) {
+void free_matrix(int** matriz, int rows) {
     for (int i = 0; i < rows; i++) {
         free(matriz[i]);
     }
     free(matriz);
 }
 
-float** sobel_filter(float** matriz, int rows, int cols) {
+int** sobel_filter(int** matriz, int rows, int cols) {
     // Kernel gx del filtro Sobel
     int gx[3][3] = {
         {-1, 0, 1},

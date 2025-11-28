@@ -4,12 +4,12 @@
 #include <math.h>
 
 // Declaración de funciones externas de sobel_naive.c
-float** read_image(const char* filename, int rows, int cols);
-void free_matrix(float** matriz, int rows);
-float** sobel_filter(float** matriz, int rows, int cols);
+int** read_image(const char* filename, int rows, int cols);
+void free_matrix(int** matriz, int rows);
+int** sobel_filter(int** matriz, int rows, int cols);
 
 // Función para escribir la imagen procesada a un archivo
-void write_image(const char* filename, float** matriz, int rows, int cols) {
+void write_image(const char* filename, int** matriz, int rows, int cols) {
     FILE* file = fopen(filename, "w");
     if (!file) {
         printf("Error al crear el archivo %s\n", filename);
@@ -18,7 +18,7 @@ void write_image(const char* filename, float** matriz, int rows, int cols) {
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            fprintf(file, "%.0f", matriz[i][j]);
+            fprintf(file, "%d", matriz[i][j]);
             if (j < cols - 1) fprintf(file, " ");
         }
         fprintf(file, "\n");
@@ -78,7 +78,7 @@ int main() {
     
     // 2. Leer la imagen
     printf("Leyendo imagen desde: %s\n", input_file);
-    float** imagen = read_image(input_file, rows, cols);
+    int** imagen = read_image(input_file, rows, cols);
     
     if (!imagen) {
         printf("Error al leer la imagen\n");
@@ -91,14 +91,14 @@ int main() {
     printf("\nPrimeros 5x5 pixeles de la imagen original:\n");
     for (int i = 0; i < 5 && i < rows; i++) {
         for (int j = 0; j < 5 && j < cols; j++) {
-            printf("%3.0f ", imagen[i][j]);
+            printf("%3d ", imagen[i][j]);
         }
         printf("\n");
     }
     
     // 4. Aplicar el filtro Sobel
     printf("\nAplicando filtro Sobel...\n");
-    float** imagen_sobel = sobel_filter(imagen, rows, cols);
+    int** imagen_sobel = sobel_filter(imagen, rows, cols);
     
     if (!imagen_sobel) {
         printf("Error al aplicar el filtro Sobel\n");
@@ -112,7 +112,7 @@ int main() {
     printf("\nPrimeros 5x5 pixeles después del filtro Sobel:\n");
     for (int i = 0; i < 5 && i < rows; i++) {
         for (int j = 0; j < 5 && j < cols; j++) {
-            printf("%3.0f ", imagen_sobel[i][j]);
+            printf("%3d ", imagen_sobel[i][j]);
         }
         printf("\n");
     }
