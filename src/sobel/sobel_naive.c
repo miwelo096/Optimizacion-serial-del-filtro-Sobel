@@ -55,7 +55,7 @@ float** sobel_filter(float** matriz, int rows, int cols) {
         for (int j = 1; j < cols - 1; j++) {
             int sobelX = 0;
             int sobelY = 0;
-            // Bucle que aplica convolución al área 3x3 alrededor del píxel actual para cada uno de los kernels
+            // Bucle que aplica convolución al área 3x3 alrededor del píxel actual para cada uno de los kernels. Por eso u y v toman valores de -1 a 1
             for (int u = -1; u <= 1; u++) {
                 for (int v = -1; v <= 1; v++) {
                     int pixel = matriz[i + u][j + v];
