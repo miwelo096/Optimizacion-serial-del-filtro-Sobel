@@ -28,6 +28,24 @@ int** read_image(const char* filename, int rows, int cols) {
     return matriz;
 }
 
+void write_image(const char* filename, int** matriz, int rows, int cols) {
+    FILE* file = fopen(filename, "w");
+    if (!file) {
+        printf("Error al crear el archivo %s\n", filename);
+        return;
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            fprintf(file, "%d", matriz[i][j]);
+            if (j < cols - 1) fprintf(file, " ");
+        }
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+}
+
 // Función para liberar la memoria de la matriz
 void free_matrix(int** matriz, int rows) {
     for (int i = 0; i < rows; i++) {
