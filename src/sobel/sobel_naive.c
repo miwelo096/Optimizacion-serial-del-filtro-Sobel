@@ -17,7 +17,6 @@ int** read_image(const char* filename, int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         matriz[i] = (int*)malloc(cols * sizeof(int));
     }
-
     // Lee los valores de la imagen desde el archivo
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
@@ -95,8 +94,8 @@ int** sobel_filter(int** matriz, int rows, int cols) {
 }
 
 int main() {
-    const char* input_file = "txt/Eiffelturm.txt";
-    const char* output_file = "txt/Eiffelturm_sobel_naive.txt";
+    const char* input_file = "txt/Torre_1080.txt";
+    const char* output_file = "txt/Torre_1080_sobel_naive.txt";
 
     // Introzuzco las dimensiones de la imagen directamente en el programa para evitar entrada/salida o tener que leerlas del archivo
     int rows = 512;
