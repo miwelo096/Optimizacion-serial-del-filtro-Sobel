@@ -1,14 +1,12 @@
 Flat profile:
 
 Each sample counts as 0.01 seconds.
- no time accumulated
-
   %   cumulative   self              self     total           
- time   seconds   seconds    calls  Ts/call  Ts/call  name    
-  0.00      0.00     0.00        1     0.00     0.00  free_matrix
-  0.00      0.00     0.00        1     0.00     0.00  read_image
-  0.00      0.00     0.00        1     0.00     0.00  sobel_filter
-  0.00      0.00     0.00        1     0.00     0.00  write_image
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+100.00      0.01     0.01        1    10.00    10.00  sobel_filter
+  0.00      0.01     0.00        1     0.00     0.00  free_matrix
+  0.00      0.01     0.00        1     0.00     0.00  read_image
+  0.00      0.01     0.00        1     0.00     0.00  write_image
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -46,20 +44,27 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 4 byte(s) no time propagated
+granularity: each sample hit covers 4 byte(s) for 100.00% of 0.01 seconds
 
 index % time    self  children    called     name
-                0.00    0.00       1/1           main [10]
-[1]      0.0    0.00    0.00       1         free_matrix [1]
+                0.01    0.00       1/1           main [2]
+[1]    100.0    0.01    0.00       1         sobel_filter [1]
 -----------------------------------------------
-                0.00    0.00       1/1           main [10]
-[2]      0.0    0.00    0.00       1         read_image [2]
+                                                 <spontaneous>
+[2]    100.0    0.00    0.01                 main [2]
+                0.01    0.00       1/1           sobel_filter [1]
+                0.00    0.00       1/1           read_image [4]
+                0.00    0.00       1/1           write_image [5]
+                0.00    0.00       1/1           free_matrix [3]
 -----------------------------------------------
-                0.00    0.00       1/1           main [10]
-[3]      0.0    0.00    0.00       1         sobel_filter [3]
+                0.00    0.00       1/1           main [2]
+[3]      0.0    0.00    0.00       1         free_matrix [3]
 -----------------------------------------------
-                0.00    0.00       1/1           main [10]
-[4]      0.0    0.00    0.00       1         write_image [4]
+                0.00    0.00       1/1           main [2]
+[4]      0.0    0.00    0.00       1         read_image [4]
+-----------------------------------------------
+                0.00    0.00       1/1           main [2]
+[5]      0.0    0.00    0.00       1         write_image [5]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -152,5 +157,5 @@ notice and this notice are preserved.
 
 Index by function name
 
-   [1] free_matrix             [3] sobel_filter
-   [2] read_image              [4] write_image
+   [3] free_matrix             [1] sobel_filter
+   [4] read_image              [5] write_image
